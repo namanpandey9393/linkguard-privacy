@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — LinkGuard</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --surface-color: #1E1E1E;
+      --surface-border: #2C2C2C;
+      --primary-color: #FFD027;
+      --primary-hover: #E5BA1A;
+      --text-color: #FFFFFF;
+      --text-secondary: #B0B0B0;
+      --accent-green: #4CAF50;
+      --accent-red: #F44336;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: var(--surface-color);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 32px 24px;
+    }
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-block;
+      background-color: rgba(255, 208, 39, 0.15);
+      color: var(--primary-color);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 208, 39, 0.3);
+    }
+    h1 {
+      font-size: 2rem;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .meta {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    h2 {
+      font-size: 1.35rem;
+      color: var(--primary-color);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 10px;
+    }
+    h3 {
+      font-size: 1.1rem;
+      color: #FFFFFF;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+    ul, ol {
+      color: var(--text-secondary);
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    li { margin-bottom: 8px; }
+    li strong { color: #FFFFFF; }
+    .card {
+      background-color: #242424;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    .card-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    th {
+      background-color: #242424;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    td {
+      color: var(--text-secondary);
+    }
+    td code {
+      background-color: #2B2B2B;
+      color: #FFD027;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface-border);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Privacy-First Security</div>
+      <h1>LinkGuard Privacy Policy</h1>
+      <div class="meta">
+        <strong>Application:</strong> com.namanpandey.linkguard &bull; 
+        <strong>Effective Date:</strong> November 11, 2026 &bull; 
+        <strong>Version:</strong> 1.0.0
+      </div>
+    </header>
+
+    <main>
+      <p>LinkGuard ("we", "us", or "our") is designed from the ground up as a privacy-preserving security tool. Our mission is to protect users from malicious links, phishing scams, and fraudulent websites while maintaining strict data minimization and respecting user privacy.</p>
+      <p>This Privacy Policy describes what information LinkGuard processes, how it is handled, what remains strictly on your device, and what optional interactions occur with external cloud services.</p>
+
+      <h2>1. Core Principles: On-Device Processing by Default</h2>
+      <p>LinkGuard performs security analysis locally on your Android device whenever possible:</p>
+      <ul>
+        <li><strong>Local Heuristic URL Inspection:</strong> Pattern-detection algorithms, character-entropy calculations, deceptive domain heuristics, and top-level domain risk evaluations execute entirely within the app's local code. Scanned URLs are not sent to any remote server for heuristic analysis.</li>
+        <li><strong>Curated Official Domain Recommendations:</strong> LinkGuard compares scanned links against a locally bundled registry of verified official domains (<code>official_domains.json</code>). This comparison occurs entirely on-device without issuing search-engine queries or querying external registries.</li>
+        <li><strong>QR Code Scanning:</strong> When you use the QR scanner, camera access is used exclusively in real time to locate and decode QR code symbols. Camera frames are processed in volatile memory on your device. Video or photos are never recorded, saved to storage, or transmitted off your device.</li>
+        <li><strong>Screenshot & Image OCR:</strong> When you analyze a screenshot or gallery image, text recognition and QR extraction are performed locally using on-device machine learning models (Google ML Kit). The image bytes remain on your device and are never uploaded to any remote server.</li>
+        <li><strong>Local Scan History & Storage:</strong> Your scan history is stored locally within Android's private application storage using SharedPreferences (serialized as JSON). When scans are recorded, embedded secrets, query values, and fragments are redacted via our privacy sanitizer (<code>UrlPrivacyRedactor</code>) before persistent storage. Records are protected by Android's operating-system application sandbox and are never synchronized to cloud servers, shared with analytics providers, or monetized. You may clear individual scan records or wipe the entire history at any time from within the app.</li>
+      </ul>
+
+      <h2>2. Optional Cloud Features and External Threat Intelligence</h2>
+      <p>LinkGuard provides optional cloud-assisted threat intelligence features that are disabled by default or require explicit user initiation:</p>
+
+      <div class="card">
+        <div class="card-title">A. External Threat Intelligence</div>
+        <ul>
+          <li><strong>Disabled by Default:</strong> Cloud threat lookups are optional and turned OFF by default upon installation.</li>
+          <li><strong>Explicit Consent Required:</strong> Cloud lookups are activated only if you explicitly enable "Online threat checking" in the app's Settings screen. You may revoke this consent at any time.</li>
+          <li><strong>URL Sanitization & Privacy Minimization:</strong> When enabled, eligible public URLs are processed by our privacy-filtering engine before dispatch:
+            <ul>
+              <li>User authentication credentials (such as <code>user:password@</code>) and URL fragment identifiers (<code>#...</code>) are stripped.</li>
+              <li>Sensitive authentication query parameters (such as <code>token</code>, <code>access_token</code>, <code>auth</code>, <code>password</code>, <code>secret</code>, <code>jwt</code>, <code>api_key</code>) are deleted, and values from all other query parameters are emptied.</li>
+              <li>The URL path (such as <code>/login</code> or <code>/verify</code>) remains in the evaluated URL. Because URL paths may still contain sensitive context, external lookups remain strictly opt-in.</li>
+            </ul>
+          </li>
+          <li><strong>Private and Internal Network Blocking:</strong> URLs pointing to local or internal resources (including <code>localhost</code>, IPv4 loopback <code>127.0.0.1</code>, IPv6 loopback <code>::1</code>, RFC 1918 private subnets such as <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>, link-local addresses, and <code>.local</code>/<code>.internal</code> domains) are blocked client-side and at the Edge Function gateway from ever triggering external network requests.</li>
+          <li><strong>Provider Architecture & Current Status:</strong> LinkGuard is architected to check public URLs against Google Web Risk via a dedicated Supabase Edge Function gateway. In the current release, external provider API credentials are intentionally unconfigured to maintain a fail-closed operation: when enabled, lookup requests receive a provider-not-configured response and immediately fall back to LinkGuard's local on-device heuristics without querying third-party servers. If an external threat intelligence provider is configured in future updates, eligible URLs will be evaluated in accordance with the provider's privacy policy.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">B. Community Threat Reporting</div>
+        <ul>
+          <li><strong>User-Initiated Submission:</strong> LinkGuard includes an optional community reporting feature. No report is ever submitted automatically. A report is sent only when you explicitly tap "Report link" and confirm the submission.</li>
+          <li><strong>Anonymous Authentication & Minimal Profile:</strong> Community reports use Supabase Anonymous Authentication. We do not require, collect, or store your name, email address, phone number, password, or any personal identity details. When an anonymous session is established, a minimal database record is automatically created in <code>public.user_profiles</code> containing only your anonymous UUID, an anonymous account flag (<code>is_anonymous: true</code>), your role (<code>'user'</code>), and activity timestamps. This record is used strictly for backend abuse mitigation, rate limiting (maximum 10 reports per hour, 100 per month), and duplicate suppression. It cannot be linked to your real identity.</li>
+          <li><strong>Report Content:</strong> When you submit a report, the application transmits only the sanitized URL (query parameters, credentials, and fragments removed), threat category selected, timestamp, and anonymous reporter UUID. Reports are deduplicated within a 24-hour window.</li>
+        </ul>
+      </div>
+
+      <h2>3. Data Infrastructure & Location</h2>
+      <p>Cloud services supporting optional threat lookups and community reports are hosted on Supabase infrastructure in the <strong>Mumbai, India (ap-south-1)</strong> region.</p>
+      <ul>
+        <li><strong>In Transit:</strong> All communication uses Transport Layer Security (TLS 1.3 / HTTPS).</li>
+        <li><strong>At Rest:</strong> Stored reports are protected by Row Level Security (RLS) policies and host-level storage encryption.</li>
+        <li><strong>No Ad Trackers:</strong> LinkGuard contains zero third-party advertising SDKs, zero user tracking libraries, and zero behavioral telemetry frameworks.</li>
+      </ul>
+
+      <h2>4. Android Device Permissions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th>Purpose</th>
+            <th>Active Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>CAMERA</code></td>
+            <td>Scan and decode QR codes</td>
+            <td>Only while the QR scanner screen is active</td>
+          </tr>
+          <tr>
+            <td><code>INTERNET</code></td>
+            <td>Optional cloud threat lookups, community reporting, store updates</td>
+            <td>On-demand during network operations</td>
+          </tr>
+          <tr>
+            <td><code>ACCESS_NETWORK_STATE</code></td>
+            <td>Verify connectivity before cloud requests</td>
+            <td>Read-only network state check</td>
+          </tr>
+          <tr>
+            <td><code>SYSTEM_ALERT_WINDOW</code></td>
+            <td>Display optional floating edge handle over other apps</td>
+            <td>Only when enabled by user in Settings</td>
+          </tr>
+          <tr>
+            <td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td>
+            <td>Maintain floating handle responsiveness across apps</td>
+            <td>User-initiated; persistent notification with Stop action</td>
+          </tr>
+          <tr>
+            <td><code>FOREGROUND_SERVICE_MEDIA_PROJECTION</code></td>
+            <td>Single-frame screen capture for OCR link detection</td>
+            <td>User-initiated; terminates immediately after one frame</td>
+          </tr>
+          <tr>
+            <td><code>POST_NOTIFICATIONS</code></td>
+            <td>Show required foreground service notifications (Android 13+)</td>
+            <td>While foreground services are active</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><em>Note: LinkGuard's Google Play flavor strictly excludes <code>REQUEST_INSTALL_PACKAGES</code> and contains no direct package installer components.</em></p>
+
+      <h2>5. Data Retention and Deletion</h2>
+      <ul>
+        <li><strong>Local Data:</strong> You have full control over data on your device. You can delete individual scans or wipe the entire history via "Previous scans". Uninstalling the app completely removes all private application storage, settings, and cached files from your device.</li>
+        <li><strong>Cloud Data:</strong> Because community reports are submitted anonymously without personal accounts, reports cannot be attributed back to your real identity. Reports are retained solely for threat detection, moderation, and abuse prevention.</li>
+      </ul>
+
+      <h2>6. Children's Privacy</h2>
+      <p>LinkGuard is not directed toward children under the age of 13 and does not knowingly collect personal information from children.</p>
+
+      <h2>7. Contact Information</h2>
+      <p>For questions or concerns regarding this Privacy Policy:</p>
+      <ul>
+        <li><strong>Maintainer:</strong> Naman Pandey</li>
+        <li><strong>Email:</strong> support@linkguard.app</li>
+        <li><strong>Repository:</strong> <a href="https://github.com/namanpandey/linkguard_v4" target="_blank" rel="noopener">https://github.com/namanpandey/linkguard_v4</a></li>
+      </ul>
+    </main>
+
+    <footer>
+      &copy; 2026 LinkGuard. All rights reserved. Built with privacy by design.
+    </footer>
+  </div>
+</body>
+</html>
