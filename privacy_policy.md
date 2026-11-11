@@ -47,12 +47,12 @@ LinkGuard provides optional cloud-assisted threat intelligence features that are
 
 ### 2.2 Community Threat Reporting
 - **User-Initiated Submission:** LinkGuard includes an optional community reporting feature. No report is ever submitted automatically. A report is sent only when you explicitly tap "Report link" and confirm the submission.
-- **Anonymous Authentication & Minimal Profile:** Community reports use Supabase Anonymous Authentication. We do not require, collect, or store your name, email address, phone number, password, or any personal identity details. When an anonymous session is established, a minimal database record is automatically created in `public.user_profiles` containing only your anonymous UUID, an anonymous account flag (`is_anonymous: true`), your role (`'user'`), and activity timestamps. This record is used strictly for backend abuse mitigation, rate limiting (maximum 10 reports per hour, 100 per month), and duplicate suppression. It cannot be linked to your real identity.
+- **Pseudonymous Identifiers & Minimal Profile:** Community reports use Supabase Anonymous Authentication. We do not require, collect, or store your name, email address, phone number, password, or any personal identity details. When an anonymous session is established, Supabase creates a pseudonymous unique identifier (UUID). A minimal database record is automatically created in `public.user_profiles` containing this pseudonymous UUID, an anonymous account flag (`is_anonymous: true`), your role (`'user'`), and activity timestamps. This record is used by backend functions to correlate reports from the same session for abuse prevention, rate limiting (maximum 10 reports per hour, 100 per month), and duplicate suppression. While this pseudonymous identifier does not reveal your real-world identity, activity within that session is correlated to that UUID for security and operational integrity.
 - **Reported Data:** When you submit a report, the application transmits:
   - The sanitized URL (query parameters, credentials, and fragments removed).
   - The threat category you selected (e.g., Phishing, Scam, Malware).
   - The timestamp of submission.
-  - Your anonymous reporter UUID.
+  - Your pseudonymous reporter UUID.
 - **Deduplication:** Reports are deduplicated within a 24-hour rolling window to minimize redundant records.
 
 ---
@@ -60,7 +60,7 @@ LinkGuard provides optional cloud-assisted threat intelligence features that are
 ## 3. Data Infrastructure & Location
 
 Cloud services supporting optional threat lookups and community reports are hosted on Supabase infrastructure located in the **Mumbai, India (`ap-south-1`)** region:
-- **Data in Transit:** All network communication is encrypted using Transport Layer Security (TLS 1.3 / HTTPS).
+- **Data in Transit:** All network communication is encrypted in transit using HTTPS / Transport Layer Security (TLS).
 - **Data at Rest:** Stored community reports are protected with database-level Row Level Security (RLS) policies and host-level storage encryption.
 - **No Third-Party Analytics or Advertising Trackers:** LinkGuard contains zero third-party advertising SDKs, zero user tracking libraries, and zero behavioral telemetry frameworks.
 
@@ -90,8 +90,8 @@ LinkGuard's Google Play distribution flavor (`play`) strictly excludes the `REQU
 1. **Local Data Deletion:**  
    You have complete control over data stored on your device. You can delete individual scan history records or clear the entire history at any time via the "Previous scans" screen. Uninstalling LinkGuard permanently removes all private application storage, settings, and cache files from your device.
 
-2. **Cloud Data Deletion:**  
-   Because community reports are submitted anonymously without user accounts, passwords, or personal identities, individual reports cannot be attributed back to your personal identity. Anonymous reporter records and submitted threat reports are retained solely for threat detection, moderation, and abuse mitigation.
+2. **Cloud Data Retention & Deletion:**  
+   Anonymous reporter profiles and submitted community threat reports are retained indefinitely for ongoing threat detection, community moderation, duplicate suppression, and abuse prevention. Disabling "Online threat checking" in the app's Settings turns off future cloud lookups but does not delete previously submitted community threat reports from the database. Because reports are associated only with a pseudonymous session UUID and lack personal accounts, individual submissions cannot be attributed back to your personal identity or selectively purged on demand.
 
 ---
 
@@ -112,5 +112,6 @@ We may update this Privacy Policy from time to time to reflect enhancements to L
 If you have questions, feedback, or concerns regarding this Privacy Policy or LinkGuard's privacy practices, please contact us:
 
 - **Project Maintainer:** Naman Pandey  
-- **Email:** `support@linkguard.app` *(or via project issue tracker)*  
-- **Project Repository:** `https://github.com/namanpandey/linkguard_v4`  
+- **Email:** [pandeynaman68@gmail.com](mailto:pandeynaman68@gmail.com)  
+- **Application Repository:** `https://github.com/namanpandey9393/linkguard`  
+- **Privacy Policy Repository:** `https://github.com/namanpandey9393/linkguard-privacy`  

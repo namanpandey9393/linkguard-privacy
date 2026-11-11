@@ -61,30 +61,42 @@
       font-size: 0.9rem;
     }
     h2 {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       color: var(--primary-color);
-      margin-top: 32px;
-      margin-bottom: 14px;
-      border-left: 4px solid var(--primary-color);
-      padding-left: 10px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 208, 39, 0.2);
+      padding-bottom: 6px;
     }
     h3 {
       font-size: 1.1rem;
       color: #FFFFFF;
-      margin-top: 20px;
+      margin-top: 18px;
       margin-bottom: 8px;
     }
     p {
-      color: var(--text-secondary);
       margin-bottom: 14px;
+      color: var(--text-secondary);
     }
     ul, ol {
-      color: var(--text-secondary);
-      margin-left: 24px;
       margin-bottom: 16px;
+      padding-left: 24px;
+      color: var(--text-secondary);
     }
-    li { margin-bottom: 8px; }
-    li strong { color: #FFFFFF; }
+    li {
+      margin-bottom: 8px;
+    }
+    strong {
+      color: #FFFFFF;
+    }
+    code {
+      background-color: #262626;
+      color: #FFD027;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
     .card {
       background-color: #242424;
       border: 1px solid var(--surface-border);
@@ -148,6 +160,7 @@
       <div class="meta">
         <strong>Application:</strong> com.namanpandey.linkguard &bull; 
         <strong>Effective Date:</strong> November 11, 2026 &bull; 
+        <strong>Last Updated:</strong> November 11, 2026 &bull; 
         <strong>Version:</strong> 1.0.0
       </div>
     </header>
@@ -159,10 +172,10 @@
       <h2>1. Core Principles: On-Device Processing by Default</h2>
       <p>LinkGuard performs security analysis locally on your Android device whenever possible:</p>
       <ul>
-        <li><strong>Local Heuristic URL Inspection:</strong> Pattern-detection algorithms, character-entropy calculations, deceptive domain heuristics, and top-level domain risk evaluations execute entirely within the app's local code. Scanned URLs are not sent to any remote server for heuristic analysis.</li>
+        <li><strong>Local Heuristic URL Inspection:</strong> Our pattern-detection algorithms, character-entropy calculations, deceptive domain heuristics, and top-level domain risk evaluations execute entirely within the app's local code. Scanned URLs are not sent to any remote server for heuristic analysis.</li>
         <li><strong>Curated Official Domain Recommendations:</strong> LinkGuard compares scanned links against a locally bundled registry of verified official domains (<code>official_domains.json</code>). This comparison occurs entirely on-device without issuing search-engine queries or querying external registries.</li>
         <li><strong>QR Code Scanning:</strong> When you use the QR scanner, camera access is used exclusively in real time to locate and decode QR code symbols. Camera frames are processed in volatile memory on your device. Video or photos are never recorded, saved to storage, or transmitted off your device.</li>
-        <li><strong>Screenshot & Image OCR:</strong> When you analyze a screenshot or gallery image, text recognition and QR extraction are performed locally using on-device machine learning models (Google ML Kit). The image bytes remain on your device and are never uploaded to any remote server.</li>
+        <li><strong>Screenshot and Image OCR:</strong> When you analyze a screenshot or gallery image, text recognition and QR extraction are performed locally using on-device machine learning models (Google ML Kit). The image bytes remain on your device and are never uploaded to any remote server.</li>
         <li><strong>Local Scan History & Storage:</strong> Your scan history is stored locally within Android's private application storage using SharedPreferences (serialized as JSON). When scans are recorded, embedded secrets, query values, and fragments are redacted via our privacy sanitizer (<code>UrlPrivacyRedactor</code>) before persistent storage. Records are protected by Android's operating-system application sandbox and are never synchronized to cloud servers, shared with analytics providers, or monetized. You may clear individual scan records or wipe the entire history at any time from within the app.</li>
       </ul>
 
@@ -170,9 +183,9 @@
       <p>LinkGuard provides optional cloud-assisted threat intelligence features that are disabled by default or require explicit user initiation:</p>
 
       <div class="card">
-        <div class="card-title">A. External Threat Intelligence</div>
+        <div class="card-title">2.1 External Threat Intelligence</div>
         <ul>
-          <li><strong>Disabled by Default:</strong> Cloud threat lookups are optional and turned OFF by default upon installation.</li>
+          <li><strong>Disabled by Default:</strong> Cloud threat lookups are optional and turned <strong>OFF</strong> by default upon installation.</li>
           <li><strong>Explicit Consent Required:</strong> Cloud lookups are activated only if you explicitly enable "Online threat checking" in the app's Settings screen. You may revoke this consent at any time.</li>
           <li><strong>URL Sanitization & Privacy Minimization:</strong> When enabled, eligible public URLs are processed by our privacy-filtering engine before dispatch:
             <ul>
@@ -187,86 +200,104 @@
       </div>
 
       <div class="card">
-        <div class="card-title">B. Community Threat Reporting</div>
+        <div class="card-title">2.2 Community Threat Reporting</div>
         <ul>
           <li><strong>User-Initiated Submission:</strong> LinkGuard includes an optional community reporting feature. No report is ever submitted automatically. A report is sent only when you explicitly tap "Report link" and confirm the submission.</li>
-          <li><strong>Anonymous Authentication & Minimal Profile:</strong> Community reports use Supabase Anonymous Authentication. We do not require, collect, or store your name, email address, phone number, password, or any personal identity details. When an anonymous session is established, a minimal database record is automatically created in <code>public.user_profiles</code> containing only your anonymous UUID, an anonymous account flag (<code>is_anonymous: true</code>), your role (<code>'user'</code>), and activity timestamps. This record is used strictly for backend abuse mitigation, rate limiting (maximum 10 reports per hour, 100 per month), and duplicate suppression. It cannot be linked to your real identity.</li>
-          <li><strong>Report Content:</strong> When you submit a report, the application transmits only the sanitized URL (query parameters, credentials, and fragments removed), threat category selected, timestamp, and anonymous reporter UUID. Reports are deduplicated within a 24-hour window.</li>
+          <li><strong>Pseudonymous Identifiers & Minimal Profile:</strong> Community reports use Supabase Anonymous Authentication. We do not require, collect, or store your name, email address, phone number, password, or any personal identity details. When an anonymous session is established, Supabase creates a pseudonymous unique identifier (UUID). A minimal database record is automatically created in <code>public.user_profiles</code> containing this pseudonymous UUID, an anonymous account flag (<code>is_anonymous: true</code>), your role (<code>'user'</code>), and activity timestamps. This record is used by backend functions to correlate reports from the same session for abuse prevention, rate limiting (maximum 10 reports per hour, 100 per month), and duplicate suppression. While this pseudonymous identifier does not reveal your real-world identity, activity within that session is correlated to that UUID for security and operational integrity.</li>
+          <li><strong>Reported Data:</strong> When you submit a report, the application transmits:
+            <ul>
+              <li>The sanitized URL (query parameters, credentials, and fragments removed).</li>
+              <li>The threat category you selected (e.g., Phishing, Scam, Malware).</li>
+              <li>The timestamp of submission.</li>
+              <li>Your pseudonymous reporter UUID.</li>
+            </ul>
+          </li>
+          <li><strong>Deduplication:</strong> Reports are deduplicated within a 24-hour rolling window to minimize redundant records.</li>
         </ul>
       </div>
 
       <h2>3. Data Infrastructure & Location</h2>
-      <p>Cloud services supporting optional threat lookups and community reports are hosted on Supabase infrastructure in the <strong>Mumbai, India (ap-south-1)</strong> region.</p>
+      <p>Cloud services supporting optional threat lookups and community reports are hosted on Supabase infrastructure located in the <strong>Mumbai, India (<code>ap-south-1</code>)</strong> region:</p>
       <ul>
-        <li><strong>In Transit:</strong> All communication uses Transport Layer Security (TLS 1.3 / HTTPS).</li>
-        <li><strong>At Rest:</strong> Stored reports are protected by Row Level Security (RLS) policies and host-level storage encryption.</li>
-        <li><strong>No Ad Trackers:</strong> LinkGuard contains zero third-party advertising SDKs, zero user tracking libraries, and zero behavioral telemetry frameworks.</li>
+        <li><strong>Data in Transit:</strong> All network communication is encrypted in transit using HTTPS / Transport Layer Security (TLS).</li>
+        <li><strong>Data at Rest:</strong> Stored community reports are protected with database-level Row Level Security (RLS) policies and host-level storage encryption.</li>
+        <li><strong>No Third-Party Analytics or Advertising Trackers:</strong> LinkGuard contains zero third-party advertising SDKs, zero user tracking libraries, and zero behavioral telemetry frameworks.</li>
       </ul>
 
       <h2>4. Android Device Permissions</h2>
+      <p>LinkGuard requests only permissions that are directly necessary for its security functions:</p>
       <table>
         <thead>
           <tr>
-            <th>Permission</th>
+            <th>Android Permission</th>
             <th>Purpose</th>
-            <th>Active Condition</th>
+            <th>When Active</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><code>CAMERA</code></td>
-            <td>Scan and decode QR codes</td>
-            <td>Only while the QR scanner screen is active</td>
+            <td><code>android.permission.CAMERA</code></td>
+            <td>Allows the device camera to scan and decode QR codes.</td>
+            <td>Only while the QR scanner screen is actively displayed.</td>
           </tr>
           <tr>
-            <td><code>INTERNET</code></td>
-            <td>Optional cloud threat lookups, community reporting, store updates</td>
-            <td>On-demand during network operations</td>
+            <td><code>android.permission.INTERNET</code></td>
+            <td>Allows optional external threat intelligence lookups, community reporting, and store update checks.</td>
+            <td>On demand when network features are invoked.</td>
           </tr>
           <tr>
-            <td><code>ACCESS_NETWORK_STATE</code></td>
-            <td>Verify connectivity before cloud requests</td>
-            <td>Read-only network state check</td>
+            <td><code>android.permission.ACCESS_NETWORK_STATE</code></td>
+            <td>Checks network availability before attempting optional cloud requests.</td>
+            <td>Read-only state check.</td>
           </tr>
           <tr>
-            <td><code>SYSTEM_ALERT_WINDOW</code></td>
-            <td>Display optional floating edge handle over other apps</td>
-            <td>Only when enabled by user in Settings</td>
+            <td><code>android.permission.SYSTEM_ALERT_WINDOW</code></td>
+            <td>Allows displaying the optional floating edge handle over other applications for quick access to link scanning.</td>
+            <td>Only when enabled by the user in settings.</td>
           </tr>
           <tr>
-            <td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td>
-            <td>Maintain floating handle responsiveness across apps</td>
-            <td>User-initiated; persistent notification with Stop action</td>
+            <td><code>android.permission.FOREGROUND_SERVICE</code></td>
+            <td>Maintains background components for the user-enabled floating handle and ephemeral screen capture.</td>
+            <td>User-initiated only; accompanied by a persistent notification.</td>
           </tr>
           <tr>
-            <td><code>FOREGROUND_SERVICE_MEDIA_PROJECTION</code></td>
-            <td>Single-frame screen capture for OCR link detection</td>
-            <td>User-initiated; terminates immediately after one frame</td>
+            <td><code>android.permission.FOREGROUND_SERVICE_SPECIAL_USE</code></td>
+            <td>Powers the floating edge handle (<code>EdgeHandleService</code>) so it remains responsive across apps.</td>
+            <td>User-initiated; stopped at any time via notification action.</td>
           </tr>
           <tr>
-            <td><code>POST_NOTIFICATIONS</code></td>
-            <td>Show required foreground service notifications (Android 13+)</td>
-            <td>While foreground services are active</td>
+            <td><code>android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION</code></td>
+            <td>Enables the single-frame on-demand screen capture (<code>ScreenCaptureService</code>) for OCR link detection.</td>
+            <td>Strictly ephemeral; runs only after system consent and terminates immediately after one frame.</td>
+          </tr>
+          <tr>
+            <td><code>android.permission.POST_NOTIFICATIONS</code></td>
+            <td>Displays the required ongoing notification for active foreground services (Android 13+).</td>
+            <td>Only while foreground services are running.</td>
           </tr>
         </tbody>
       </table>
-      <p><em>Note: LinkGuard's Google Play flavor strictly excludes <code>REQUEST_INSTALL_PACKAGES</code> and contains no direct package installer components.</em></p>
+      <p><em>LinkGuard's Google Play distribution flavor (<code>play</code>) strictly excludes the <code>REQUEST_INSTALL_PACKAGES</code> permission and contains no direct package installer components.</em></p>
 
-      <h2>5. Data Retention and Deletion</h2>
-      <ul>
-        <li><strong>Local Data:</strong> You have full control over data on your device. You can delete individual scans or wipe the entire history via "Previous scans". Uninstalling the app completely removes all private application storage, settings, and cached files from your device.</li>
-        <li><strong>Cloud Data:</strong> Because community reports are submitted anonymously without personal accounts, reports cannot be attributed back to your real identity. Reports are retained solely for threat detection, moderation, and abuse prevention.</li>
-      </ul>
+      <h2>5. Data Retention, Control, and Deletion</h2>
+      <ol>
+        <li><strong>Local Data Deletion:</strong> You have complete control over data stored on your device. You can delete individual scan history records or clear the entire history at any time via the "Previous scans" screen. Uninstalling LinkGuard permanently removes all private application storage, settings, and cache files from your device.</li>
+        <li><strong>Cloud Data Retention & Deletion:</strong> Anonymous reporter profiles and submitted community threat reports are retained indefinitely for ongoing threat detection, community moderation, duplicate suppression, and abuse prevention. Disabling "Online threat checking" in the app's Settings turns off future cloud lookups but does not delete previously submitted community threat reports from the database. Because reports are associated only with a pseudonymous session UUID and lack personal accounts, individual submissions cannot be attributed back to your personal identity or selectively purged on demand.</li>
+      </ol>
 
       <h2>6. Children's Privacy</h2>
-      <p>LinkGuard is not directed toward children under the age of 13 and does not knowingly collect personal information from children.</p>
+      <p>LinkGuard does not target and does not knowingly collect any personal information from children under the age of 13 (or the applicable age in your jurisdiction). If you believe a child has provided us with personal information, please contact us so we can take appropriate steps.</p>
 
-      <h2>7. Contact Information</h2>
-      <p>For questions or concerns regarding this Privacy Policy:</p>
+      <h2>7. Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time to reflect enhancements to LinkGuard or changes in legal requirements. Any updates will be published with a revised "Last Updated" date. We encourage you to review this policy periodically.</p>
+
+      <h2>8. Contact Us</h2>
+      <p>If you have questions, feedback, or concerns regarding this Privacy Policy or LinkGuard's privacy practices, please contact us:</p>
       <ul>
-        <li><strong>Maintainer:</strong> Naman Pandey</li>
-        <li><strong>Email:</strong> support@linkguard.app</li>
-        <li><strong>Repository:</strong> <a href="https://github.com/namanpandey/linkguard_v4" target="_blank" rel="noopener">https://github.com/namanpandey/linkguard_v4</a></li>
+        <li><strong>Project Maintainer:</strong> Naman Pandey</li>
+        <li><strong>Email:</strong> <a href="mailto:pandeynaman68@gmail.com">pandeynaman68@gmail.com</a></li>
+        <li><strong>Application Repository:</strong> <a href="https://github.com/namanpandey9393/linkguard" target="_blank" rel="noopener">https://github.com/namanpandey9393/linkguard</a></li>
+        <li><strong>Privacy Policy Repository:</strong> <a href="https://github.com/namanpandey9393/linkguard-privacy" target="_blank" rel="noopener">https://github.com/namanpandey9393/linkguard-privacy</a></li>
       </ul>
     </main>
 
